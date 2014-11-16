@@ -39,6 +39,9 @@ SOFTWARE.
     "use strict";
     
     
+    var DD = {};
+    
+    
 /**
  * Utilities & Variables
  *
@@ -129,14 +132,24 @@ SOFTWARE.
     
 
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 /**
  * Drop
  *
  * The function handling drop targets
  */
     
-    var drop = function(elems, options) {
-        var DD = addEvents({});
+    DD.drop = function(elems, options) {
+        var Drop = addEvents({});
         
         
         
@@ -237,11 +250,11 @@ SOFTWARE.
      * Return the Drop object
      */
         
-        DD.elems = elems;
-        DD.options = options;
-        DD.files = files;
+        Drop.elems = elems;
+        Drop.options = options;
+        Drop.files = files;
         
-        return DD;
+        return Drop;
     }
     
     
@@ -253,8 +266,8 @@ SOFTWARE.
  * The function handling draggable elements
  */
     
-    var drag = function(elems, options) {
-        var DD = addEvents({});
+    DD.drag = function(elems, options) {
+        var Drag = addEvents({});
         
         
         
@@ -343,10 +356,10 @@ SOFTWARE.
      * Return the Drag object
      */
         
-        DD.elems = elems;
-        DD.options = options;
+        Drag.elems = elems;
+        Drag.options = options;
         
-        return DD;
+        return Drag;
     }
     
     
@@ -359,5 +372,5 @@ SOFTWARE.
  *
  * Return an object exposing the drag and drop functions
  */
-    return {drag: drag, drop: drop};
+    return DD;
 }));

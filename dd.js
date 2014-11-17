@@ -39,13 +39,11 @@ SOFTWARE.
     "use strict";
     
     
-    var DD = {};
-    
-    
 /**
  * Utilities & Variables
  *
  * Some utilities and variables used by the drag and drop functions further down
+ * =====================================================================================================================
  */
     
     var EFFECT_ALLOWED = /^(copy|move|link|copyMove|copyLink|linkMove|all)$/;
@@ -135,10 +133,29 @@ SOFTWARE.
     
     
     
+
     
     
     
     
+/**
+ * Code
+ *
+ * The actual implementation
+ * ====================================================================================================================
+ */
+    
+    
+
+    
+    
+/**
+ * DD
+ *
+ * The main object, exposing the public API
+ */
+    
+    var DD = {};
     
     
     
@@ -149,6 +166,8 @@ SOFTWARE.
  */
     
     DD.drop = function(elems, options) {
+        
+        
         var Drop = addEvents({});
         
         
@@ -192,7 +211,7 @@ SOFTWARE.
             filechooser.setAttribute("type", "file");
             filechooser.onclick = function(e) {
                 files = e.target.files;
-                DD.emit("click", [e, files]);
+                Drop.emit("click", [e, files]);
             }
         }
         
@@ -213,7 +232,7 @@ SOFTWARE.
             
             if(options.click) {
                 elem.onclick = function(e) {
-                    DD.emit("click", [e, elem]);
+                    Drop.emit("click", [e, elem]);
                     filechooser.click();
                 }
                 addClass(elem, "dd-click");
@@ -221,24 +240,24 @@ SOFTWARE.
             
             elem.ondragenter = function(e) {
                 if(options.dropEffect) {e.dataTransfer.dropEffect = options.dropEffect;}
-                DD.emit("dragenter", [e, elem]);
+                Drop.emit("dragenter", [e, elem]);
                 addClass(elem, "dd-dragover");
             }
             
             elem.ondragover = function(e) {
                 e.preventDefault();
-                DD.emit("dragover", [e, elem]);
+                Drop.emit("dragover", [e, elem]);
             }
             
             elem.ondragleave = function(e) {
-                DD.emit("dragleave", [e, elem]);
+                Drop.emit("dragleave", [e, elem]);
                 removeClass(elem, "dd-dragover");
             }
             
             elem.ondrop = function(e) {
                 e.preventDefault();
                 if(e.dataTransfer.files.length) {files = e.dataTransfer.files;}
-                DD.emit("drop", [e, elem]);
+                Drop.emit("drop", [e, elem]);
             }
         }
         
@@ -267,6 +286,8 @@ SOFTWARE.
  */
     
     DD.drag = function(elems, options) {
+        
+        
         var Drag = addEvents({});
         
         
@@ -334,16 +355,16 @@ SOFTWARE.
                         e.dataTransfer.setData(options.data[i][0], options.data[i][1]);
                     }
                 }
-                DD.emit("dragstart", [e, elem]);
+                Drag.emit("dragstart", [e, elem]);
                 addClass(elem, "dd-dragging");
             }
             
             elem.ondrag = function(e) {
-                DD.emit("drag", [e, elem]);
+                Drag.emit("drag", [e, elem]);
             }
             
             elem.ondragend = function(e) {
-                DD.emit("dragend", [e, elem]);
+                Drag.emit("dragend", [e, elem]);
             }
         }
         
@@ -370,7 +391,7 @@ SOFTWARE.
 /**
  * Return
  *
- * Return an object exposing the drag and drop functions
+ * Return the DD object
  */
     return DD;
 }));
